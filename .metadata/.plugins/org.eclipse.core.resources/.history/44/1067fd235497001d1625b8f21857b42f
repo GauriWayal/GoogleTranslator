@@ -1,0 +1,46 @@
+package TestPackage;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import POMPackage.SearchDetailsPage;
+import org.testng.Assert;
+
+
+
+
+
+public class TestClass {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver","D:\\Selenium Workspace\\SelPractise\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+        driver.get("https://translate.google.co.in");
+		driver.manage().window().maximize();
+		SearchDetailsPage page=new SearchDetailsPage(driver);
+		page.expandSelection().click();
+	    page.selectLanguage().sendKeys("English");
+	    page.selectLanguage().sendKeys(Keys.ENTER);
+	    page.enterTextToBeTransslated().sendKeys("Test");
+	   // page.getText().sendKeys("Test");
+	    page.getLanguage().click();
+	    page.getTranslatedLang().sendKeys("Marathi");
+	    page.getTranslatedLang().sendKeys(Keys.ENTER);
+	    
+	    
+	    String expectedValue = "à¤šà¤¾à¤šà¤£à¥€";
+	    
+	    String actualTeanslatedValue = page.getTranslatedValue();
+	   
+	    // Asser
+	Assert.assertEquals(actualTeanslatedValue, expectedValue);
+	    
+	   // Assert.assertTrue(actualTeanslatedValue.equals(expectedValue));
+	    
+	   
+
+	}
+
+}
